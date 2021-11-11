@@ -12,20 +12,13 @@ const pg = require('knex')({
     connection: process.env.PG_CONNECTION_STRING ? process.env.PG_CONNECTION_STRING : 'postgres://admin:dev5@localhost:5432/festival_api'
   });
 
-server.get("/get", (req, res)=> {
-    const festival = { 
-        name: "Rock Werchter",
-        locatie: "Werchter", 
-        startdatum: "30/06/2022",
-        einddatum: "3/07/2022",
-        capaciteit: "90000",
-        prijs: 243
-    };
+  server.get("/get", async(req, res) => {
+    await pg.select().from('festival_api')
+    .then(data => {
+      res.send(data)
+    })
 
-    res.json(festival)
-
-
-})
+  })
 
 server.post("/post",async(req,res)=>{
     const {
