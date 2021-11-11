@@ -1,8 +1,7 @@
 const express = require("express");
 const server = express();
 const PORT = 8000;
-const bodyParser = require('body-parser');
-server.use(bodyParser.json());
+server.use(express.json());
 
 
 const pg = require('knex')({
@@ -47,6 +46,24 @@ server.post("/post",async(req,res)=>{
       res.sendStatus(400);
     }
   });
+
+  server.delete('/delete', async (req, res) => {
+
+    const {
+        id: id
+    } = req.body
+
+      if(id){
+        await pg('festival_api').where('id', req.body.id)
+        .del()
+        .then(() => {
+          res.sendStatus(200)
+        })
+      }else{
+        res.sendStatus(400);
+      }
+
+})
 
   async function initialiseTables() {
     await pg.schema.hasTable('festival_api').then(async (exists) => {
