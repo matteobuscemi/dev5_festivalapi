@@ -1,0 +1,20 @@
+{
+  "name": "dev5_festivalapi",
+  "version": "1.0.0",
+  "description": "Een API met informatie over alle toekomstige belgische festivals.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matteobuscemi/dev5_festivalapi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matteobuscemi/dev5_festivalapi/issues"
+  },
+  "homepage": "https://github.com/matteobuscemi/dev5_festivalapi#readme"
+}
