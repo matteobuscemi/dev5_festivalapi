@@ -1,6 +1,8 @@
 const express = require("express");
 const server = express();
-const PORT = 8080;
+const PORT = 8000;
+const bodyParser = require('body-parser');
+server.use(bodyParser.json());
 
 
 const pg = require('knex')({
@@ -10,14 +12,14 @@ const pg = require('knex')({
     connection: process.env.PG_CONNECTION_STRING ? process.env.PG_CONNECTION_STRING : 'postgres://admin:dev5@localhost:5432/festival_api'
   });
 
-server.get("/", (req, res)=> {
+server.get("/get", (req, res)=> {
     const festival = { 
-        name: 'Rock Werchter',
+        name: "Rock Werchter",
         locatie: "Werchter", 
         startdatum: "30/06/2022",
         einddatum: "3/07/2022",
         capaciteit: "90000",
-        prijs: "243 euro"
+        prijs: 243
     };
 
     res.json(festival)
@@ -25,7 +27,7 @@ server.get("/", (req, res)=> {
 
 })
 
-server.post("/",async(req,res)=>{
+server.post("/post",async(req,res)=>{
     const {
         name: name,
         locatie: locatie,
