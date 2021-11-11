@@ -89,6 +89,13 @@ server.put('/UPDATE', async (req, res) => {
       })
 });
 
+server.get('/ORDERBYPRICE', async (req,res) => {
+  await pg.select().from('festival_api')
+    .then(data => {
+      res.send(data.sort((a,b) => a.prijs > b.prijs ? 1:-1))
+    })
+})
+
   async function initialiseTables() {
     await pg.schema.hasTable('festival_api').then(async (exists) => {
       if (!exists) {
