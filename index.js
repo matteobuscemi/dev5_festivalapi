@@ -11,7 +11,7 @@ const pg = require('knex')({
     connection: process.env.PG_CONNECTION_STRING ? process.env.PG_CONNECTION_STRING : 'postgres://admin:dev5@localhost:5432/festival_api'
   });
 
-  server.get("/get", async(req, res) => {
+  server.get("/GET", async(req, res) => {
     await pg.select().from('festival_api')
     .then(data => {
       res.send(data)
@@ -19,7 +19,7 @@ const pg = require('knex')({
 
   })
 
-server.post("/post",async(req,res)=>{
+server.post("/POST",async(req,res)=>{
     const {
         name: name,
         locatie: locatie,
@@ -47,7 +47,7 @@ server.post("/post",async(req,res)=>{
     }
   });
 
-  server.delete('/delete', async (req, res) => {
+  server.delete('/DELETE', async (req, res) => {
 
     const {
         id: id
@@ -64,6 +64,30 @@ server.post("/post",async(req,res)=>{
       }
 
 })
+
+server.put('/UPDATE', async (req, res) => {
+  const {
+      id,
+      name, 
+      locatie, 
+      startdatum, 
+      einddatum,
+      capaciteit,
+      prijs
+  } = req.body
+      await pg('festival_api')
+      .where({id: id}).update({
+          name: name,
+          locatie: locatie,
+          startdatum: startdatum, 
+          einddatum: einddatum,
+          capaciteit: capaciteit,
+          prijs: prijs
+      })
+      .then(data => {
+        res.sendStatus(200)
+      })
+});
 
   async function initialiseTables() {
     await pg.schema.hasTable('festival_api').then(async (exists) => {
