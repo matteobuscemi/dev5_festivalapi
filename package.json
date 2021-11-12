@@ -4,9 +4,9 @@
   "description": "Een API met informatie over alle toekomstige belgische festivals.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "jest ./ --maxWorkers=1"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/matteobuscemi/dev5_festivalapi/issues"
   },
-  "homepage": "https://github.com/matteobuscemi/dev5_festivalapi#readme"
+  "homepage": "https://github.com/matteobuscemi/dev5_festivalapi#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jest": "^27.3.1",
+    "knex": "^0.95.14",
+    "pg": "^8.7.1",
+    "supertest": "^6.1.6"
+  }
 }
