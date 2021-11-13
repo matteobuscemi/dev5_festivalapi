@@ -1,6 +1,6 @@
 const express = require("express");
 const server = express();
-const PORT = 8000;
+const PORT = 3000;
 server.use(express.json());
 
 
@@ -8,7 +8,7 @@ const pg = require('knex')({
     client: 'pg',
     version: '14',
     searchPath: ['knex', 'public'],
-    connection: process.env.PG_CONNECTION_STRING ? process.env.PG_CONNECTION_STRING : 'postgres://admin:dev5@localhost:5432/festival_api'
+    connection: process.env.PG_CONNECTION_STRING ? process.env.PG_CONNECTION_STRING : 'postgres://admin:dev5@festival_db:5432/festival_api'
   });
 
 
