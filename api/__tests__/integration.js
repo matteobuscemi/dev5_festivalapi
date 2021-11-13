@@ -1,7 +1,5 @@
-const { request } = require("../server");
-
 const supertest = require('supertest');
-const server = require('./../server.js');
+const server = require('../src/server.js');
 
 const required = supertest(server);
 
