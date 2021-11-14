@@ -13,9 +13,8 @@ Met behulp van deze API kan je devolgende gegevens over festivals terugvinden:
 # Gebruiksaanwijzingen
 1. Clone de repository
 2. Zorg ervoor dat in de juiste directory zit 'cd dev5_festivalapi'
-3. Installeer alle nodige dependencies 'npm install'
-4. 'npm start'
-5. Ga naar browser naar keuze en surf naar localhost:8000
+3. "docker-compose up --build
+5. Ga naar browser naar keuze en surf naar localhost:3000
 
 # Resources
 - http://knexjs.org/
