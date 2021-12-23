@@ -77,13 +77,29 @@ server.put('/UPDATE', async (req, res) => {
             table.string('einddatum');
             table.string('capaciteit');
             table.integer('prijs');
+            table.string('genre');
             table.timestamps(true, true);
           })
           .then(async () => {});
-      }else{}
+      }
+    });
+  }
+
+  async function initialiseTablesGenres() {
+    await pg.schema.hasTable('festival_genres').then(async (exists) => {
+      if (!exists) {
+        await pg.schema
+          .createTable('festival_genres', (table) => {
+            table.increments();
+            table.string('genre');
+            table.timestamps(true, true);
+          })
+          .then(async () => {});
+      }
     });
   }
   initialiseTables()
+  initialiseTablesGenres()
 
 
 
