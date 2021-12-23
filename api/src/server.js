@@ -89,7 +89,6 @@ server.put('/UPDATE', async (req, res) => {
     await pg.schema.hasTable('festival_genres').then(async (exists) => {
       if (!exists) {
         await pg.schema
-        //test
           .createTable('festival_genres', (table) => {
             table.increments();
             table.string('genre');
