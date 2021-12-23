@@ -63,6 +63,14 @@ server.put('/UPDATE', async (req, res) => {
       .where({id: id}).update({ name: name, locatie: locatie, startdatum: startdatum, einddatum: einddatum, capaciteit: capaciteit, prijs: prijs, genre: genre }).then(data => { res.sendStatus(200) })
 });
 
+server.put('/UPDATEGENRES', async (req, res) => {
+  const { id, genre } = req.body
+      await pg('festival_genres')
+      .where({id: id}).update({ genre: genre }).then(data => { res.sendStatus(200) })
+});
+
+
+
   /**
   * endpoint that allows the user to delete a festival in the API
   * @params id (integer)
@@ -74,6 +82,16 @@ server.put('/UPDATE', async (req, res) => {
         await pg('festival_api').where('id', req.body.id).del()
         .then(() => { res.sendStatus(200) })
       }else{ res.sendStatus(400); }
+
+})
+
+server.delete('/DELETEGENRES', async (req, res) => {
+
+  const { id: id } = req.body
+    if(id){
+      await pg('festival_genres').where('id', req.body.id).del()
+      .then(() => { res.sendStatus(200) })
+    }else{ res.sendStatus(400); }
 
 })
 
