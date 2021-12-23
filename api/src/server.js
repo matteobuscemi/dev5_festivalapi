@@ -85,6 +85,16 @@ server.put('/UPDATEGENRES', async (req, res) => {
 
 })
 
+server.delete('/DELETEALL', async (req, res) => {
+  await pg('festival_api').del().then(() => { res.sendStatus(200)
+
+})});
+
+server.delete('/DELETEALLGENRES', async (req, res) => {
+      await pg('festival_genres').del().then(() => { res.sendStatus(200)
+
+})});
+
 server.delete('/DELETEGENRES', async (req, res) => {
 
   const { id: id } = req.body
