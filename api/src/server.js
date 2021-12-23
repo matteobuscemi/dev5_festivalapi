@@ -34,9 +34,9 @@ server.get('/ORDERBYPRICE', async (req,res) => {
   * @params name (string), locatie (string), startDatum (string), eindDatum (string), capaciteit (integer) and prijs (integer)
   */
 server.post("/POST",async(req,res)=>{
-    const { name, locatie, startdatum, einddatum, capaciteit,prijs } = req.body
-    if(name,  locatie, startdatum,  einddatum, capaciteit, prijs){
-          await pg('festival_api').insert({ name: name, locatie: locatie, startdatum: startdatum, einddatum: einddatum, capaciteit: capaciteit, prijs: prijs })
+    const { name, locatie, startdatum, einddatum, capaciteit,prijs, genre } = req.body
+    if(name,  locatie, startdatum,  einddatum, capaciteit, prijs, genre){
+          await pg('festival_api').insert({ name: name, locatie: locatie, startdatum: startdatum, einddatum: einddatum, capaciteit: capaciteit, prijs: prijs, genre: genre })
           .then(data => { res.sendStatus(200); })
     } else{ res.sendStatus(400); }
   });
@@ -46,9 +46,9 @@ server.post("/POST",async(req,res)=>{
   * @params id (integer), name (string), locatie (string), startDatum (string), eindDatum (string), capaciteit (integer) and prijs (integer)
   */
 server.put('/UPDATE', async (req, res) => {
-  const { id, name, locatie, startdatum, einddatum, capaciteit, prijs } = req.body
+  const { id, name, locatie, startdatum, einddatum, capaciteit, prijs, genre } = req.body
       await pg('festival_api')
-      .where({id: id}).update({ name: name, locatie: locatie, startdatum: startdatum, einddatum: einddatum, capaciteit: capaciteit, prijs: prijs }).then(data => { res.sendStatus(200) })
+      .where({id: id}).update({ name: name, locatie: locatie, startdatum: startdatum, einddatum: einddatum, capaciteit: capaciteit, prijs: prijs, genre: genre }).then(data => { res.sendStatus(200) })
 });
 
   /**
