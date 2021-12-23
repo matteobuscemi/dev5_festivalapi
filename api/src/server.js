@@ -20,6 +20,10 @@ const pg = require('knex')({
     await pg.select().from('festival_api').then(data => {res.send(data)})
   })
 
+  server.get("/GETGENRES", async(req, res) => {
+    await pg.select().from('festival_genres').then(data => {res.send(data)})
+  })
+
   /**
   * endpoint that allows the user to get all the festivals from the API ordered by price ascending
   * @returns (object) festival with: name, location, starting date, end date, capacity and price, ascending by price
@@ -37,6 +41,14 @@ server.post("/POST",async(req,res)=>{
     const { name, locatie, startdatum, einddatum, capaciteit,prijs, genre } = req.body
     if(name,  locatie, startdatum,  einddatum, capaciteit, prijs, genre){
           await pg('festival_api').insert({ name: name, locatie: locatie, startdatum: startdatum, einddatum: einddatum, capaciteit: capaciteit, prijs: prijs, genre: genre })
+          .then(data => { res.sendStatus(200); })
+    } else{ res.sendStatus(400); }
+  });
+
+  server.post("/POSTGENRES",async(req,res)=>{
+    const { genre } = req.body
+    if(genre){
+          await pg('festival_genres').insert({ genre: genre })
           .then(data => { res.sendStatus(200); })
     } else{ res.sendStatus(400); }
   });
