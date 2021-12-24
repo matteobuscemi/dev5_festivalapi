@@ -9,6 +9,7 @@ Met behulp van deze API kan je devolgende gegevens over festivals terugvinden:
 - eind datum (string)
 - max capaciteit (string)
 - prijs ticket (integer)
+- festival genre (string)
 
 # Gebruiksaanwijzingen
 1. Clone de repository
