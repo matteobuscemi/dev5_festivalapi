@@ -13,7 +13,7 @@ Met behulp van deze API kan je devolgende gegevens over festivals terugvinden:
 
 GET:
 
--/GET - Krijg alle festivals aanwezig in de API
+- /GET - Krijg alle festivals aanwezig in de API
 - /GETGENRES - Krijg alle genres aanwezig in de API
 - /ORDERBYPRICE - Krijg alle festivals aanwezig in de API gerangschikt van minst duur tot duurste
 
