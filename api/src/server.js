@@ -20,6 +20,10 @@ const pg = require('knex')({
     await pg.select().from('festival_api').then(data => {res.send(data)})
   })
 
+  server.get("/GETGENRES", async(req, res) => {
+    await pg.select().from('festival_genres').then(data => {res.send(data)})
+  })
+
   /**
   * endpoint that allows the user to get all the festivals from the API ordered by price ascending
   * @returns (object) festival with: name, location, starting date, end date, capacity and price, ascending by price
@@ -34,9 +38,17 @@ server.get('/ORDERBYPRICE', async (req,res) => {
   * @params name (string), locatie (string), startDatum (string), eindDatum (string), capaciteit (integer) and prijs (integer)
   */
 server.post("/POST",async(req,res)=>{
-    const { name, locatie, startdatum, einddatum, capaciteit,prijs } = req.body
-    if(name,  locatie, startdatum,  einddatum, capaciteit, prijs){
-          await pg('festival_api').insert({ name: name, locatie: locatie, startdatum: startdatum, einddatum: einddatum, capaciteit: capaciteit, prijs: prijs })
+    const { name, locatie, startdatum, einddatum, capaciteit,prijs, genre } = req.body
+    if(name,  locatie, startdatum,  einddatum, capaciteit, prijs, genre){
+          await pg('festival_api').insert({ name: name, locatie: locatie, startdatum: startdatum, einddatum: einddatum, capaciteit: capaciteit, prijs: prijs, genre: genre })
+          .then(data => { res.sendStatus(200); })
+    } else{ res.sendStatus(400); }
+  });
+
+  server.post("/POSTGENRES",async(req,res)=>{
+    const { genre } = req.body
+    if(genre){
+          await pg('festival_genres').insert({ genre: genre })
           .then(data => { res.sendStatus(200); })
     } else{ res.sendStatus(400); }
   });
@@ -46,10 +58,18 @@ server.post("/POST",async(req,res)=>{
   * @params id (integer), name (string), locatie (string), startDatum (string), eindDatum (string), capaciteit (integer) and prijs (integer)
   */
 server.put('/UPDATE', async (req, res) => {
-  const { id, name, locatie, startdatum, einddatum, capaciteit, prijs } = req.body
+  const { id, name, locatie, startdatum, einddatum, capaciteit, prijs, genre } = req.body
       await pg('festival_api')
-      .where({id: id}).update({ name: name, locatie: locatie, startdatum: startdatum, einddatum: einddatum, capaciteit: capaciteit, prijs: prijs }).then(data => { res.sendStatus(200) })
+      .where({id: id}).update({ name: name, locatie: locatie, startdatum: startdatum, einddatum: einddatum, capaciteit: capaciteit, prijs: prijs, genre: genre }).then(data => { res.sendStatus(200) })
 });
+
+server.put('/UPDATEGENRES', async (req, res) => {
+  const { id, genre } = req.body
+      await pg('festival_genres')
+      .where({id: id}).update({ genre: genre }).then(data => { res.sendStatus(200) })
+});
+
+
 
   /**
   * endpoint that allows the user to delete a festival in the API
@@ -65,6 +85,26 @@ server.put('/UPDATE', async (req, res) => {
 
 })
 
+server.delete('/DELETEALL', async (req, res) => {
+  await pg('festival_api').del().then(() => { res.sendStatus(200)
+
+})});
+
+server.delete('/DELETEALLGENRES', async (req, res) => {
+      await pg('festival_genres').del().then(() => { res.sendStatus(200)
+
+})});
+
+server.delete('/DELETEGENRES', async (req, res) => {
+
+  const { id: id } = req.body
+    if(id){
+      await pg('festival_genres').where('id', req.body.id).del()
+      .then(() => { res.sendStatus(200) })
+    }else{ res.sendStatus(400); }
+
+})
+
   async function initialiseTables() {
     await pg.schema.hasTable('festival_api').then(async (exists) => {
       if (!exists) {
@@ -77,13 +117,29 @@ server.put('/UPDATE', async (req, res) => {
             table.string('einddatum');
             table.string('capaciteit');
             table.integer('prijs');
+            table.string('genre');
             table.timestamps(true, true);
           })
           .then(async () => {});
-      }else{}
+      }
+    });
+  }
+
+  async function initialiseTablesGenres() {
+    await pg.schema.hasTable('festival_genres').then(async (exists) => {
+      if (!exists) {
+        await pg.schema
+          .createTable('festival_genres', (table) => {
+            table.increments();
+            table.string('genre');
+            table.timestamps(true, true);
+          })
+          .then(async () => {});
+      }
     });
   }
   initialiseTables()
+  initialiseTablesGenres()
 
 
 
