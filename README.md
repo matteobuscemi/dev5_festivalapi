@@ -13,28 +13,28 @@ Met behulp van deze API kan je devolgende gegevens over festivals terugvinden:
 
 GET:
 
-/GET - Krijg alle festivals aanwezig in de API
-/GETGENRES - Krijg alle genres aanwezig in de API
-/ORDERBYPRICE - Krijg alle festivals aanwezig in de API gerangschikt van minst duur tot duurste
+-/GET - Krijg alle festivals aanwezig in de API
+- /GETGENRES - Krijg alle genres aanwezig in de API
+- /ORDERBYPRICE - Krijg alle festivals aanwezig in de API gerangschikt van minst duur tot duurste
 
 
 POST:
 
-/POST - Geef hierboven vermelde gegevens op en stuur deze naar de festival api waar ze opgeslagen worden
-/POSTGENRES - Geef een genre (string) op en stuur deze naar de genres api waar deze opgeslagen wordt
+- /POST - Geef hierboven vermelde gegevens op en stuur deze naar de festival api waar ze opgeslagen worden
+- /POSTGENRES - Geef een genre (string) op en stuur deze naar de genres api waar deze opgeslagen wordt
 
 PUT:
 
-/UPDATE - Geef de id (int) van het festival op en wat je aan het object wilt veranderen, wordt realtime opgeslagen en doorgestuurd naar database
-/UPDATEGENRES - Geef de id (int) van het genre op en genre (string) naar wat je de originele genre wilt veranderen
+- /UPDATE - Geef de id (int) van het festival op en wat je aan het object wilt veranderen, wordt realtime opgeslagen en doorgestuurd naar database
+- /UPDATEGENRES - Geef de id (int) van het genre op en genre (string) naar wat je de originele genre wilt veranderen
 
 DELETE:
 
-/DELETE - Geef de id (int) van het festival op en deze wordt automatisch uit de lijst verwijdert
-/DELETEGENRE - Geef de id (int) van de genre op en deze wordt automatisch verwijdert
-/DELETEALL - Verwijdert alle festivals uit de tabel
-/DELETEALLGENRES - Verwijdert alle genres uit de tabel
-/DELETEALLDUPLICATEGENRES - Geef de genre (string) op en deze zal dan alle gelijkaardige genres verwijderen.
+- /DELETE - Geef de id (int) van het festival op en deze wordt automatisch uit de lijst verwijdert
+- /DELETEGENRE - Geef de id (int) van de genre op en deze wordt automatisch verwijdert
+- /DELETEALL - Verwijdert alle festivals uit de tabel
+- /DELETEALLGENRES - Verwijdert alle genres uit de tabel
+- /DELETEALLDUPLICATEGENRES - Geef de genre (string) op en deze zal dan alle gelijkaardige genres verwijderen.
 
 # Gebruiksaanwijzingen
 1. Clone de repository
