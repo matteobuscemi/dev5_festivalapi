@@ -20,6 +20,10 @@ const pg = require('knex')({
     await pg.select().from('festival_api').then(data => {res.send(data)})
   })
 
+  /**
+  * endpoint that gets all the festivals from the API
+  * @returns (object) genres
+  */
   server.get("/GETGENRES", async(req, res) => {
     await pg.select().from('festival_genres').then(data => {res.send(data)})
   })
@@ -35,16 +39,22 @@ server.get('/ORDERBYPRICE', async (req,res) => {
 
   /**
   * endpoint that allows the user to create a festival and send to the API
-  * @params name (string), locatie (string), startDatum (string), eindDatum (string), capaciteit (integer) and prijs (integer)
+  * @params name (string), locatie (string), startDatum (string), eindDatum (string), capaciteit (integer), prijs (integer) and genre (string)
   */
 server.post("/POST",async(req,res)=>{
     const { name, locatie, startdatum, einddatum, capaciteit,prijs, genre } = req.body
     if(name,  locatie, startdatum,  einddatum, capaciteit, prijs, genre){
-          await pg('festival_api').insert({ name: name, locatie: locatie, startdatum: startdatum, einddatum: einddatum, capaciteit: capaciteit, prijs: prijs, genre: genre })
+          await pg('festival_api').insert({ name: name, locatie: locatie, startdatum: startdatum, einddatum: einddatum, capaciteit: capaciteit, prijs: prijs, genre: genre }),
+          await pg('festival_genres').insert({ genre: genre })
           .then(data => { res.sendStatus(200); })
     } else{ res.sendStatus(400); }
   });
 
+
+  /**
+  * endpoint that allows the user to create a genre and send to the API
+  * @params genre (string)
+  */
   server.post("/POSTGENRES",async(req,res)=>{
     const { genre } = req.body
     if(genre){
@@ -85,16 +95,45 @@ server.put('/UPDATEGENRES', async (req, res) => {
 
 })
 
+/**
+  * endpoint that allows the user to delete all festival in the API
+  * 
+  */
 server.delete('/DELETEALL', async (req, res) => {
   await pg('festival_api').del().then(() => { res.sendStatus(200)
 
 })});
 
+
+/**
+  * endpoint that allows the user to delete all genres in the API
+  * @params genre (string)
+  */
 server.delete('/DELETEALLGENRES', async (req, res) => {
       await pg('festival_genres').del().then(() => { res.sendStatus(200)
 
 })});
 
+
+/**
+  * endpoint that allows the user to delete all duplicates genre in the API
+  * @params genre (string)
+  */
+server.delete('/DELETEALLDUPLICATEGENRES', async (req, res) => {
+  
+  const { genre: genre } = req.body
+  if(genre){
+    await pg('festival_genres').where('genre', req.body.genre).del()
+    .then(() => { res.sendStatus(200) })
+  }else{ res.sendStatus(400); }
+
+});
+
+
+/**
+  * endpoint that allows the user to delete a genre in the API
+  * @params id (integer)
+  */
 server.delete('/DELETEGENRES', async (req, res) => {
 
   const { id: id } = req.body
